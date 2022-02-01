@@ -77,16 +77,34 @@
     // ROWS - run from left to right
     // --------------------------------------------------------------
     //
-    // test if a specific row on this board contains a conflict
-    hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
-    },
+   // test if a specific row on this board contains a conflict
+   hasRowConflictAt: function(rowIndex) {
 
-    // test if any rows on this board contain conflicts
-    hasAnyRowConflicts: function() {
-      return false; // fixme
-    },
+    // get the current row
+    var currentRow = this.get(rowIndex);
+    //iterate over each column
+    for (var i = 0; i < currentRow.length; i++) {
+      //determine if any of the columns=== 1
+      if(currentRow[i] === 1) {
+        return true;
+      }
+    }
+    // if so --> you have found a conflict
+    return false; // fixme
+  },
 
+  // test if any rows on this board contain conflicts
+  hasAnyRowConflicts: function() {
+    // iterate through all the rows within the board
+    var numRows = this.rows().length;
+    for (var i = 0; i < numRows; i++) {
+      // for row[i]
+      if (this.hasRowConflictAt(i)) {
+        return true;
+      }
+    }
+    return false;
+  },
 
 
     // COLUMNS - run from top to bottom
