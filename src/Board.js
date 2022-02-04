@@ -118,7 +118,7 @@
       var counter = 0;
       // 0,0 1,0,2, 0,3, 0
       // this.rows()[i][colIndex
-      var numRows = this.get(0).length;
+      var numRows = this.get('n');
 
       for (var i = 0; i < numRows; i++) {
         var value = this.get(i)[colIndex];
@@ -135,7 +135,8 @@
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function () {
       // iterate through all the cols within the board
-      var numCols = this.get(0).length;
+
+      var numCols = this.get('n');
       for (var i = 0; i < numCols; i++) {
 
         if (this.hasColConflictAt(i)) {
