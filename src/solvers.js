@@ -93,6 +93,9 @@ window.findNQueensSolution = function (n) {
       if (!solution.hasAnyQueensConflicts()) {
         if (placeQueen(counter)) {
           return true;
+        }else {
+          solution.togglePiece(row, i);
+          counter--;
         }
 
         //     // returns true if all queens have been placed on the board
@@ -117,12 +120,37 @@ window.findNQueensSolution = function (n) {
 };
 
     // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
-// window.countNQueensSolutions = function (n) {
-//   var solutionCount = undefined; //fixme
+window.countNQueensSolutions = function (n) {
+  var solutionCount = 0;
+  var board = new Board({n: n});
 
-//   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-//   return solutionCount;
-// };
+  var placeQueen = function (row) {
+    // inside
+    // base case --> 3 rooks placed on the board
+    // row === n
+    if (row === n) {
+      // increment solution count
+      solutionCount++;
+      return;
+    }
+    // for each row --> iterate over each column
+    for (var i = 0; i < board.get('n'); i++) {
+      // toggle the square at that position
+      board.togglePiece(row, i);
+      // if there is no conflict at that position
+      if (!board.hasAnyQueensConflicts()) {
+        // recursively call the function starting at the next row
+        placeQueen(row + 1);
+      }
+      // otherwise untoggle that position
+      board.togglePiece(row, i);
+    }
+  }
+
+  placeQueen(0);
+  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  return solutionCount;
+};
 
 
 /*
